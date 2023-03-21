@@ -20,7 +20,6 @@ select * from get_addresses();
 
 drop function get_addresses;
 
-
 select address.address, longitude, latitude
 from address 
 where longitude is not null and latitude is not null;

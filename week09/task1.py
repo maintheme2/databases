@@ -23,10 +23,10 @@ cur.execute('''alter table address
 for address in addresses:
     location = geolocator.geocode(address, timeout = 10)
     if location is not None:
-        cur.execute('UPDATE address SET longitude=%s, latitude=%s WHERE address=%s;', (location.longitude, location.latitude, address[0]))
+        cur.execute('UPDATE address SET longitude=%s, latitude=%s WHERE address=%s;', (location.longitude, location.latitude, address))
         con.commit()
     else:
-        cur.execute('UPDATE address SET longitude=%s, latitude=%s WHERE address=%s;', (0.0, 0.0, address[0]))
+        cur.execute('UPDATE address SET longitude=%s, latitude=%s WHERE address=%s;', (0.0, 0.0, address))
         con.commit()
 
 cur.close()
