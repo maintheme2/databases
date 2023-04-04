@@ -15,10 +15,10 @@ def display_Irish_and_Russian():
 def find_by_address(address: list):
     street_name = address[0]
     building = address[1]
-    street_number = address[2]
+    zipcode = address[2]
     restaurant = restaurants.find_one({"address.street": street_name, 
                                         "address.building": building, 
-                                        "address.zipcode": street_number})
+                                        "address.zipcode": zipcode})
     print(restaurant['name'])
 
 print("Irish cuisine:")
