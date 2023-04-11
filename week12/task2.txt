@@ -1,0 +1,26 @@
+1) match (f:Fighter) - [:beats]->() where (f.weight = "155" or f.weight = "170" or f.weight = "185") return f;
+
+
+2) match (f:Fighter) - [b:beats] -> (f2:Fighter) match (f2) - [b2:beats] -> (f) with f, f2, count(b) as f_count, count(b2) as f2_count where f_count = 1 and f2_count = 1 return f, f2;
+
+3) 
+match (f:Fighter)-[:beats]->(f2:Fighter)
+with f, count(*) as total_fights
+order by total_fights desc
+with collect(f) as fighters, max(total_fights) as max_total
+unwind fighters as fighter
+with fighter, max_total
+where size([(fighter)-[:beats]->(f2:Fighter) | f2:Fighter]) = max_total
+return fighter.name, max_total;
+
+4)
+
+match (f:Fighter)
+with f, size([(f)-[b:beats]->() | f.name]) as wins
+where wins = 0
+return f.name as defeated;
+
+match (f:Fighter)
+with f, size([(f)<-[:beats]-() | f.name]) as losses
+where losses = 0
+return f.name as undefeated;
